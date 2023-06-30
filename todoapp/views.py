@@ -1,33 +1,9 @@
 from django.shortcuts import render, redirect
-from django.urls import reverse_lazy
 from .models import Task
 from .forms import todoforms
-from django.views.generic.list import ListView
-from django.views.generic.detail import DetailView
-from django.views.generic.edit import UpdateView,DeleteView
+
 
 # Create your views here.
-class listtask(ListView):
-    model = Task
-    template_name = 'home.html'
-    context_object_name ='task'
-class taskdetails(DetailView):
-    model = Task
-    template_name = 'detail.html'
-    context_object_name = 'task'
-class taskupdate(UpdateView):
-    model = Task
-    template_name = 'update.html'
-    context_object_name = 'task'
-    fields = ('name','priority','date')
-    def get_success_url(self):
-        return reverse_lazy('todoapp:detail',kwargs={'pk':self.object.id})
-
-class deletetask(DeleteView):
-    model = Task
-    template_name = 'delete.html'
-    success_url = reverse_lazy('todoapp:list')
-
 def add(request):
     task1 = Task.objects.all()
     if request.method=='POST':
